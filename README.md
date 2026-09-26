@@ -2,8 +2,12 @@
 
 A simple, static 4-page website (Home, Features, Pricing, Contact) for selling MiniKart as a product.
 No build step needed — it's plain HTML/CSS/JS. Uses your real MiniKart logo and real screenshots
-of the app (dashboard, checkout, orders, inventory, purchases, expenses, reports), plus a few
-subtle scroll/hover animations for polish.
+of the app (dashboard, checkout, orders, inventory, purchases, expenses, reports).
+
+Animation, inspired by the "animated agency" style of site (staggered hero text, a looping
+feature marquee, screenshots that wipe into view, magnetic buttons, live counters, a custom
+cursor on desktop): a few deliberate moments rather than motion on everything. All of it respects
+a visitor's "reduce motion" accessibility setting automatically.
 
 ## Before you publish this
 
