@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
       var subject = encodeURIComponent("Website enquiry from " + (form.name.value || "website visitor"));
       var body = "Name: " + (form.name.value || "") + "%0D%0AEmail: " + (form.email.value || "") + "%0D%0A%0D%0A" + (form.message.value || "");
-      window.location.href = "mailto:REPLACE_WITH_YOUR_EMAIL@example.com?subject=" + subject + "&body=" + body;
+      window.location.href = "mailto:info@minikart.com?subject=" + subject + "&body=" + body;
     });
   }
 
