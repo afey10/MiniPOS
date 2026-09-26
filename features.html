@@ -5,7 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Features — MiniKart</title>
 <meta name="description" content="Everything MiniKart includes: sales, inventory, purchases, staff roles, void approvals, dashboards and more." />
+<meta name="theme-color" content="#f7f8fc" />
 <link rel="icon" href="assets/favicon.png" />
+<script>
+  /* Runs before first paint. Enables motion styles (html.js), decides whether
+     the once-per-session intro plays, and — if assets/script.js never boots —
+     removes html.js again so every element is simply visible. */
+  (function (d, w) {
+    var h = d.documentElement;
+    h.classList.add("js");
+    try {
+      /* "Seen" lives in a session cookie (shared across tabs, gone when the
+         browser closes) with sessionStorage as fallback for file:// previews. */
+      var seen = /(?:^|; )mk-intro=1/.test(d.cookie) || sessionStorage.getItem("mk-intro");
+      if (!seen && !w.matchMedia("(prefers-reduced-motion: reduce)").matches) h.classList.add("is-intro");
+    } catch (e) {}
+    w.addEventListener("load", function () {
+      setTimeout(function () { if (!w.MK_READY) h.classList.remove("js", "is-intro"); }, 300);
+    });
+  })(document, window);
+</script>
 <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
@@ -13,72 +32,73 @@
 <header class="site">
   <div class="container nav">
     <a href="index.html" class="brand">
-      <img src="assets/logo-mark.png" alt="MiniKart logo" />
+      <img src="assets/logo-mark.png" alt="" width="32" height="32" />
       MiniKart
     </a>
-    <nav class="nav-links">
+    <nav class="nav-links" id="site-nav" aria-label="Main">
       <a href="index.html">Home</a>
-      <a href="features.html">Features</a>
+      <a href="features.html" aria-current="page">Features</a>
       <a href="pricing.html">Pricing</a>
       <a href="contact.html">Contact</a>
       <a href="contact.html" class="nav-cta magnetic">Get in touch</a>
     </nav>
-    <button class="menu-toggle" aria-label="Menu">☰</button>
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button>
   </div>
 </header>
 
+<main>
 <section class="hero" style="padding-bottom:20px;">
   <div class="container">
-    <span class="eyebrow">Features</span>
-    <h1>Everything you need to run the counter</h1>
-    <p class="lead">One system for sales, stock and staff — instead of a notebook, a calculator and a separate spreadsheet.</p>
+    <span class="eyebrow" data-reveal>Features</span>
+    <h1 data-reveal="words">Everything you need to run the counter</h1>
+    <p class="lead" data-reveal>One system for sales, stock and staff — instead of a notebook, a calculator and a separate spreadsheet.</p>
   </div>
 </section>
 
 <section>
   <div class="container">
     <div class="grid">
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon">🧾</div>
         <h3>Point of sale</h3>
         <p>A fast, touch-friendly checkout screen. Add items, apply discounts, split payments, and print or send a digital receipt in seconds.</p>
       </div>
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon">📦</div>
         <h3>Inventory management</h3>
         <p>Stock counts adjust automatically with every sale and purchase. Set low-stock thresholds so you restock before you're caught short.</p>
       </div>
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon">🗂️</div>
-        <h3>Product & category management</h3>
+        <h3>Product &amp; category management</h3>
         <p>Organize your menu or catalog with categories, quick-add shortcuts, and pricing that's easy to update as things change.</p>
       </div>
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon">🛒</div>
-        <h3>Purchases & suppliers</h3>
+        <h3>Purchases &amp; suppliers</h3>
         <p>Log purchase orders and supplier costs, print letterheaded POs, and keep your cost data in the same place as your sales data.</p>
       </div>
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon">💵</div>
         <h3>Cash register tracking</h3>
         <p>Open and close registers per shift, log cash in/out, and reconcile at the end of the day without guesswork.</p>
       </div>
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon">🔐</div>
         <h3>Role-based permissions</h3>
         <p>Cashier, manager and administrator roles each see only what's relevant. Sensitive actions — like voiding a bill — require manager approval.</p>
       </div>
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon">📊</div>
         <h3>Live dashboard</h3>
         <p>Today's sales, order history and register status update in real time, so what you see on screen matches what's actually happening.</p>
       </div>
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon">🧑‍🤝‍🧑</div>
         <h3>Staff accounts</h3>
         <p>Give every staff member their own login, track who did what, and remove access instantly when someone leaves.</p>
       </div>
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon">📱</div>
         <h3>Installs like an app</h3>
         <p>Add it to a phone, tablet or computer home screen in two taps. No app store listing, no separate installer.</p>
@@ -90,10 +110,10 @@
 <section class="alt">
   <div class="container">
     <div class="showcase">
-      <div class="showcase-media">
-        <span class="wipe"><img src="assets/screenshot-purchases.png" alt="MiniKart purchases screen for recording supplier orders" /></span>
+      <div class="showcase-media" data-reveal="media">
+        <span class="wipe"><img src="assets/screenshot-purchases.png" width="1400" height="673" loading="lazy" decoding="async" alt="MiniKart purchases screen for recording supplier orders" /></span>
       </div>
-      <div class="showcase-copy">
+      <div class="showcase-copy" data-reveal>
         <span class="eyebrow">Purchasing</span>
         <h3>Purchases and suppliers, in the same system</h3>
         <p>Record what you bought, from whom, and what it cost — so your true margins are always visible next to your sales.</p>
@@ -106,10 +126,10 @@
     </div>
 
     <div class="showcase reverse">
-      <div class="showcase-media">
-        <span class="wipe"><img src="assets/screenshot-expenses.png" alt="MiniKart expenses screen for tracking business costs" /></span>
+      <div class="showcase-media" data-reveal="media">
+        <span class="wipe"><img src="assets/screenshot-expenses.png" width="1400" height="673" loading="lazy" decoding="async" alt="MiniKart expenses screen for tracking business costs" /></span>
       </div>
-      <div class="showcase-copy">
+      <div class="showcase-copy" data-reveal>
         <span class="eyebrow">Expenses</span>
         <h3>Track running costs without a separate app</h3>
         <p>Rent, utilities, small purchases — log business expenses by category and see exactly how they stack up against sales.</p>
@@ -125,33 +145,34 @@
 
 <section>
   <div class="container">
-    <div class="section-head">
-      <span class="eyebrow">Built for real shifts</span>
-      <h2>Designed around how small teams actually work</h2>
-      <p>Every feature above exists because a real cashier, manager or owner needed it — not because it looked good on a spec sheet.</p>
+    <div class="section-head" style="margin-bottom:0;">
+      <span class="eyebrow" data-reveal>Built for real shifts</span>
+      <h2 data-reveal="words">Designed around how small teams actually work</h2>
+      <p data-reveal>Every feature above exists because a real cashier, manager or owner needed it — not because it looked good on a spec sheet.</p>
     </div>
   </div>
 </section>
 
 <section>
   <div class="container">
-    <div class="cta-band">
-      <h2>Want to see it in action?</h2>
+    <div class="cta-band" data-reveal>
+      <h2 data-reveal="words">Want to see it in action?</h2>
       <p>We'll walk you through a live demo using your own products and pricing.</p>
       <div class="hero-actions">
-        <a href="contact.html" class="btn btn-primary magnetic">Request a demo</a>
+        <a href="contact.html" class="btn btn-primary magnetic">Request a demo<svg class="btn-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <a href="pricing.html" class="btn btn-outline">View pricing</a>
       </div>
     </div>
   </div>
 </section>
+</main>
 
 <footer class="site">
   <div class="container">
     <div class="footer-grid">
       <div>
         <div class="footer-brand">
-          <img src="assets/logo-mark.png" alt="MiniKart" />
+          <img src="assets/logo-mark.png" alt="" width="28" height="28" loading="lazy" />
           <span>MiniKart</span>
         </div>
         <p>Simple point-of-sale software for cafés, retail shops and small businesses.</p>

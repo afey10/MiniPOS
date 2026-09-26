@@ -5,7 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Pricing — MiniKart</title>
 <meta name="description" content="MiniKart pricing plans for small businesses — simple, transparent, no hidden fees." />
+<meta name="theme-color" content="#f7f8fc" />
 <link rel="icon" href="assets/favicon.png" />
+<script>
+  /* Runs before first paint. Enables motion styles (html.js), decides whether
+     the once-per-session intro plays, and — if assets/script.js never boots —
+     removes html.js again so every element is simply visible. */
+  (function (d, w) {
+    var h = d.documentElement;
+    h.classList.add("js");
+    try {
+      /* "Seen" lives in a session cookie (shared across tabs, gone when the
+         browser closes) with sessionStorage as fallback for file:// previews. */
+      var seen = /(?:^|; )mk-intro=1/.test(d.cookie) || sessionStorage.getItem("mk-intro");
+      if (!seen && !w.matchMedia("(prefers-reduced-motion: reduce)").matches) h.classList.add("is-intro");
+    } catch (e) {}
+    w.addEventListener("load", function () {
+      setTimeout(function () { if (!w.MK_READY) h.classList.remove("js", "is-intro"); }, 300);
+    });
+  })(document, window);
+</script>
 <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
@@ -13,25 +32,26 @@
 <header class="site">
   <div class="container nav">
     <a href="index.html" class="brand">
-      <img src="assets/logo-mark.png" alt="MiniKart logo" />
+      <img src="assets/logo-mark.png" alt="" width="32" height="32" />
       MiniKart
     </a>
-    <nav class="nav-links">
+    <nav class="nav-links" id="site-nav" aria-label="Main">
       <a href="index.html">Home</a>
       <a href="features.html">Features</a>
-      <a href="pricing.html">Pricing</a>
+      <a href="pricing.html" aria-current="page">Pricing</a>
       <a href="contact.html">Contact</a>
       <a href="contact.html" class="nav-cta magnetic">Get in touch</a>
     </nav>
-    <button class="menu-toggle" aria-label="Menu">☰</button>
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button>
   </div>
 </header>
 
+<main>
 <section class="hero" style="padding-bottom:20px;">
   <div class="container">
-    <span class="eyebrow">Pricing</span>
-    <h1>Simple pricing, no surprises</h1>
-    <p class="lead">
+    <span class="eyebrow" data-reveal>Pricing</span>
+    <h1 data-reveal="words">Simple pricing, no surprises</h1>
+    <p class="lead" data-reveal>
       Placeholder plans below — swap in your real prices and limits once you've decided on them.
       Everyone starts with a personal walkthrough, not a self-serve signup form.
     </p>
@@ -41,20 +61,20 @@
 <section>
   <div class="container">
     <div class="pricing-grid">
-      <div class="plan">
+      <div class="plan" data-reveal>
         <h3>Starter</h3>
         <div class="price">MVR 0<span>/mo</span></div>
         <p class="plan-note">For a single counter just getting going</p>
         <ul>
           <li>1 register, 1 device</li>
           <li>Up to 2 staff logins</li>
-          <li>Sales & inventory tracking</li>
+          <li>Sales &amp; inventory tracking</li>
           <li>Digital receipts</li>
           <li>Email support</li>
         </ul>
-        <a href="contact.html" class="btn btn-outline" style="text-align:center;">Get started</a>
+        <a href="contact.html" class="btn btn-outline">Get started</a>
       </div>
-      <div class="plan featured">
+      <div class="plan featured" data-reveal>
         <span class="badge">Most popular</span>
         <h3>Business</h3>
         <div class="price">MVR 0<span>/mo</span></div>
@@ -62,14 +82,14 @@
         <ul>
           <li>Up to 3 registers</li>
           <li>Unlimited staff logins</li>
-          <li>Purchases & supplier tracking</li>
+          <li>Purchases &amp; supplier tracking</li>
           <li>Manager approvals (void requests, etc.)</li>
-          <li>Live dashboard & reports</li>
+          <li>Live dashboard &amp; reports</li>
           <li>Priority support</li>
         </ul>
-        <a href="contact.html" class="btn btn-primary magnetic" style="text-align:center;">Get started</a>
+        <a href="contact.html" class="btn btn-primary magnetic">Get started<svg class="btn-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
-      <div class="plan">
+      <div class="plan" data-reveal>
         <h3>Multi-location</h3>
         <div class="price">Custom</div>
         <p class="plan-note">For multiple branches under one business</p>
@@ -77,59 +97,62 @@
           <li>Everything in Business</li>
           <li>Multiple locations</li>
           <li>Combined reporting</li>
-          <li>Onboarding & training included</li>
+          <li>Onboarding &amp; training included</li>
           <li>Dedicated support</li>
         </ul>
-        <a href="contact.html" class="btn btn-outline" style="text-align:center;">Talk to us</a>
+        <a href="contact.html" class="btn btn-outline">Talk to us</a>
       </div>
     </div>
-    <p class="pricing-note">Prices shown are placeholders — replace them with your real numbers before sharing this page publicly.</p>
+    <p class="pricing-note" data-reveal>Prices shown are placeholders — replace them with your real numbers before sharing this page publicly.</p>
   </div>
 </section>
 
 <section class="alt">
   <div class="container">
     <div class="section-head">
-      <span class="eyebrow">Questions</span>
-      <h2>Frequently asked</h2>
+      <span class="eyebrow" data-reveal>Questions</span>
+      <h2 data-reveal="words">Frequently asked</h2>
     </div>
-    <div class="faq-item">
-      <h3>Do I need special hardware?</h3>
-      <p>No — MiniKart runs on the phone, tablet or computer you already have. A receipt printer is optional.</p>
-    </div>
-    <div class="faq-item">
-      <h3>Can I change plans later?</h3>
-      <p>Yes, you can move between plans as your business grows — just get in touch.</p>
-    </div>
-    <div class="faq-item">
-      <h3>Is my data backed up?</h3>
-      <p>Yes, your sales, inventory and staff data are stored securely and backed up automatically.</p>
-    </div>
-    <div class="faq-item">
-      <h3>How do I get started?</h3>
-      <p>Reach out through the contact page and we'll set up your account and walk you through it personally.</p>
+    <div class="faq-list">
+      <div class="faq-item" data-reveal>
+        <h3>Do I need special hardware?</h3>
+        <p>No — MiniKart runs on the phone, tablet or computer you already have. A receipt printer is optional.</p>
+      </div>
+      <div class="faq-item" data-reveal>
+        <h3>Can I change plans later?</h3>
+        <p>Yes, you can move between plans as your business grows — just get in touch.</p>
+      </div>
+      <div class="faq-item" data-reveal>
+        <h3>Is my data backed up?</h3>
+        <p>Yes, your sales, inventory and staff data are stored securely and backed up automatically.</p>
+      </div>
+      <div class="faq-item" data-reveal>
+        <h3>How do I get started?</h3>
+        <p>Reach out through the contact page and we'll set up your account and walk you through it personally.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <section>
   <div class="container">
-    <div class="cta-band">
-      <h2>Not sure which plan fits?</h2>
+    <div class="cta-band" data-reveal>
+      <h2 data-reveal="words">Not sure which plan fits?</h2>
       <p>Tell us a bit about your business and we'll recommend the right one.</p>
       <div class="hero-actions">
-        <a href="contact.html" class="btn btn-primary magnetic">Contact us</a>
+        <a href="contact.html" class="btn btn-primary magnetic">Contact us<svg class="btn-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
     </div>
   </div>
 </section>
+</main>
 
 <footer class="site">
   <div class="container">
     <div class="footer-grid">
       <div>
         <div class="footer-brand">
-          <img src="assets/logo-mark.png" alt="MiniKart" />
+          <img src="assets/logo-mark.png" alt="" width="28" height="28" loading="lazy" />
           <span>MiniKart</span>
         </div>
         <p>Simple point-of-sale software for cafés, retail shops and small businesses.</p>

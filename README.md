@@ -4,10 +4,28 @@ A simple, static 4-page website (Home, Features, Pricing, Contact) for selling M
 No build step needed — it's plain HTML/CSS/JS. Uses your real MiniKart logo and real screenshots
 of the app (dashboard, checkout, orders, inventory, purchases, expenses, reports).
 
-Animation, inspired by the "animated agency" style of site (staggered hero text, a looping
-feature marquee, screenshots that wipe into view, magnetic buttons, live counters, a custom
-cursor on desktop): a few deliberate moments rather than motion on everything. All of it respects
-a visitor's "reduce motion" accessibility setting automatically.
+Animation, inspired by the "animated agency" style of site — a few deliberate moments rather than
+motion on everything:
+
+- **Intro** — the first page someone opens in a browser session shows a short (~1s) MiniKart logo
+  intro that lifts away to reveal the page. It doesn't replay as they click around, and any click,
+  key or scroll skips it.
+- **Hero** — the headline rises in word by word, followed by the rest of the hero; the dashboard
+  screenshot starts tilted back in 3D and flattens as you scroll into it.
+- **Product tour (home page, desktop)** — the screenshot pins in place while you scroll through the
+  four features, swapping screens as each one comes into focus. On phones it's a normal stacked list.
+- **Screenshots** elsewhere reveal with a blue curtain wipe; section headings rise in word by word.
+- Small details: magnetic buttons, a cursor dot on desktop, a header that tucks away when you
+  scroll down and comes back when you scroll up, an animated mobile menu, counting stats, and a
+  soft cross-fade between pages in browsers that support it.
+
+All of it respects a visitor's "reduce motion" setting (content simply fades in), and nothing
+depends on the animation code to be visible: if `assets/script.js` fails to load, the page shows
+everything normally.
+
+**Adding new content:** put `data-reveal` on an element to fade it in on scroll,
+`data-reveal="words"` on a heading for the word-by-word rise, or `data-reveal="media"` on a
+screenshot box (with the image inside `<span class="wipe">`) for the curtain wipe.
 
 ## Before you publish this
 

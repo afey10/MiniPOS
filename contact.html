@@ -5,7 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Contact — MiniKart</title>
 <meta name="description" content="Get in touch with MiniKart for a demo, pricing questions, or support." />
+<meta name="theme-color" content="#f7f8fc" />
 <link rel="icon" href="assets/favicon.png" />
+<script>
+  /* Runs before first paint. Enables motion styles (html.js), decides whether
+     the once-per-session intro plays, and — if assets/script.js never boots —
+     removes html.js again so every element is simply visible. */
+  (function (d, w) {
+    var h = d.documentElement;
+    h.classList.add("js");
+    try {
+      /* "Seen" lives in a session cookie (shared across tabs, gone when the
+         browser closes) with sessionStorage as fallback for file:// previews. */
+      var seen = /(?:^|; )mk-intro=1/.test(d.cookie) || sessionStorage.getItem("mk-intro");
+      if (!seen && !w.matchMedia("(prefers-reduced-motion: reduce)").matches) h.classList.add("is-intro");
+    } catch (e) {}
+    w.addEventListener("load", function () {
+      setTimeout(function () { if (!w.MK_READY) h.classList.remove("js", "is-intro"); }, 300);
+    });
+  })(document, window);
+</script>
 <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
@@ -13,25 +32,26 @@
 <header class="site">
   <div class="container nav">
     <a href="index.html" class="brand">
-      <img src="assets/logo-mark.png" alt="MiniKart logo" />
+      <img src="assets/logo-mark.png" alt="" width="32" height="32" />
       MiniKart
     </a>
-    <nav class="nav-links">
+    <nav class="nav-links" id="site-nav" aria-label="Main">
       <a href="index.html">Home</a>
       <a href="features.html">Features</a>
       <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact</a>
+      <a href="contact.html" aria-current="page">Contact</a>
       <a href="contact.html" class="nav-cta magnetic">Get in touch</a>
     </nav>
-    <button class="menu-toggle" aria-label="Menu">☰</button>
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button>
   </div>
 </header>
 
+<main>
 <section class="hero" style="padding-bottom:20px;">
   <div class="container">
-    <span class="eyebrow">Contact</span>
-    <h1>Let's set you up</h1>
-    <p class="lead">Tell us a little about your business and we'll get back to you with a demo and pricing.</p>
+    <span class="eyebrow" data-reveal>Contact</span>
+    <h1 data-reveal="words">Let's set you up</h1>
+    <p class="lead" data-reveal>Tell us a little about your business and we'll get back to you with a demo and pricing.</p>
   </div>
 </section>
 
@@ -40,21 +60,21 @@
     <div class="contact-grid">
       <div>
         <ul class="contact-list">
-          <li>
+          <li data-reveal>
             <div class="icon">✉️</div>
             <div>
               <strong>Email</strong>
-              <span>info@minikart.com</span>
+              <a href="mailto:info@minikart.com">info@minikart.com</a>
             </div>
           </li>
-          <li>
+          <li data-reveal>
             <div class="icon">📞</div>
             <div>
               <strong>Phone / WhatsApp</strong>
-              <span>+9609421552</span>
+              <span>REPLACE_WITH_YOUR_PHONE_NUMBER</span>
             </div>
           </li>
-          <li>
+          <li data-reveal>
             <div class="icon">📍</div>
             <div>
               <strong>Based in</strong>
@@ -63,32 +83,33 @@
           </li>
         </ul>
       </div>
-      <form class="contact-form">
+      <form class="contact-form" data-reveal>
         <div>
           <label for="name">Name</label>
-          <input type="text" id="name" name="name" required />
+          <input type="text" id="name" name="name" autocomplete="name" required />
         </div>
         <div>
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" required />
+          <input type="email" id="email" name="email" autocomplete="email" required />
         </div>
         <div>
           <label for="message">Tell us about your business</label>
           <textarea id="message" name="message" placeholder="What kind of business, how many staff, what you're currently using..."></textarea>
         </div>
-        <button type="submit" class="btn btn-primary magnetic">Send message</button>
+        <button type="submit" class="btn btn-primary magnetic"><span class="btn-label">Send message</span><svg class="btn-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <p class="form-note">This opens your email app with the message pre-filled to info@minikart.com.</p>
       </form>
     </div>
   </div>
 </section>
+</main>
 
 <footer class="site">
   <div class="container">
     <div class="footer-grid">
       <div>
         <div class="footer-brand">
-          <img src="assets/logo-mark.png" alt="MiniKart" />
+          <img src="assets/logo-mark.png" alt="" width="28" height="28" loading="lazy" />
           <span>MiniKart</span>
         </div>
         <p>Simple point-of-sale software for cafés, retail shops and small businesses.</p>

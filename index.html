@@ -5,7 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>MiniKart — Simple point-of-sale software for small businesses</title>
 <meta name="description" content="MiniKart is easy-to-use point-of-sale software for cafés, retail shops and small businesses — sales, inventory, purchases and staff management in one place." />
+<meta name="theme-color" content="#f7f8fc" />
 <link rel="icon" href="assets/favicon.png" />
+<script>
+  /* Runs before first paint. Enables motion styles (html.js), decides whether
+     the once-per-session intro plays, and — if assets/script.js never boots —
+     removes html.js again so every element is simply visible. */
+  (function (d, w) {
+    var h = d.documentElement;
+    h.classList.add("js");
+    try {
+      /* "Seen" lives in a session cookie (shared across tabs, gone when the
+         browser closes) with sessionStorage as fallback for file:// previews. */
+      var seen = /(?:^|; )mk-intro=1/.test(d.cookie) || sessionStorage.getItem("mk-intro");
+      if (!seen && !w.matchMedia("(prefers-reduced-motion: reduce)").matches) h.classList.add("is-intro");
+    } catch (e) {}
+    w.addEventListener("load", function () {
+      setTimeout(function () { if (!w.MK_READY) h.classList.remove("js", "is-intro"); }, 300);
+    });
+  })(document, window);
+</script>
 <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
@@ -13,101 +32,106 @@
 <header class="site">
   <div class="container nav">
     <a href="index.html" class="brand">
-      <img src="assets/logo-mark.png" alt="MiniKart logo" />
+      <img src="assets/logo-mark.png" alt="" width="32" height="32" />
       MiniKart
     </a>
-    <nav class="nav-links">
-      <a href="index.html">Home</a>
+    <nav class="nav-links" id="site-nav" aria-label="Main">
+      <a href="index.html" aria-current="page">Home</a>
       <a href="features.html">Features</a>
       <a href="pricing.html">Pricing</a>
       <a href="contact.html">Contact</a>
       <a href="contact.html" class="nav-cta magnetic">Get in touch</a>
     </nav>
-    <button class="menu-toggle" aria-label="Menu">☰</button>
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button>
   </div>
 </header>
 
+<main>
 <section class="hero">
   <div class="container">
-    <span class="eyebrow">Point of sale, made simple</span>
-    <h1>Run your café, shop or storefront from one clean dashboard.</h1>
-    <p class="lead">
+    <span class="eyebrow" data-reveal>Point of sale, made simple</span>
+    <h1 data-reveal="words">Run your café, shop or storefront from one clean dashboard.</h1>
+    <p class="lead" data-reveal>
       MiniKart handles sales, inventory, purchases and your team — on a phone, tablet or
       computer, with receipts and reports built in. No bulky hardware, no complicated setup.
     </p>
-    <div class="hero-actions">
-      <a href="contact.html" class="btn btn-primary magnetic">Request a demo</a>
+    <div class="hero-actions" data-reveal>
+      <a href="contact.html" class="btn btn-primary magnetic">Request a demo<svg class="btn-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a href="features.html" class="btn btn-outline magnetic">See what it does</a>
     </div>
 
-    <div class="stats" style="margin-top:56px;">
+    <div class="stats" data-reveal>
       <div class="stat">
-        <div class="num" data-count="3" data-suffix=" min">0 min</div>
+        <div class="num" data-count="3" data-suffix=" min">3 min</div>
         <div class="label">to set up a new sale item</div>
       </div>
       <div class="stat">
-        <div class="num" data-count="0">0</div>
+        <div class="num" data-count="0" data-from="9">0</div>
         <div class="label">extra hardware required</div>
       </div>
       <div class="stat">
-        <div class="num" data-count="100" data-suffix="%">0%</div>
+        <div class="num" data-count="100" data-suffix="%">100%</div>
         <div class="label">live — sales update instantly</div>
       </div>
     </div>
   </div>
 </section>
 
-<section>
+<section class="hero-shot-section">
   <div class="container">
-    <div class="marquee">
-      <div class="marquee-track" id="marquee-track"></div>
+    <div class="hero-shot" data-reveal data-tilt>
+      <div class="tilt">
+        <div class="frame">
+          <img src="assets/screenshot-dashboard.png" width="1400" height="673" fetchpriority="high" decoding="async" alt="MiniKart dashboard showing today's sales, orders and quick stats" />
+        </div>
+      </div>
     </div>
+    <p class="frame-caption" data-reveal>A real look at the MiniKart dashboard — live sales, stock and order data, no spreadsheets required.</p>
   </div>
 </section>
 
-<section>
+<section class="marquee-section">
   <div class="container">
-    <div class="frame">
-      <span class="wipe"><img src="assets/screenshot-dashboard.png" alt="MiniKart dashboard showing today's sales, orders and quick stats" /></span>
+    <div class="marquee" data-reveal aria-hidden="true">
+      <div class="marquee-track" id="marquee-track"></div>
     </div>
-    <p class="frame-caption">A real look at the MiniKart dashboard — live sales, stock and order data, no spreadsheets required.</p>
   </div>
 </section>
 
 <section class="alt">
   <div class="container">
     <div class="section-head">
-      <span class="eyebrow">Why teams switch</span>
-      <h2>Everything a small business needs to sell</h2>
-      <p>Built for people running the counter, not IT departments.</p>
+      <span class="eyebrow" data-reveal>Why teams switch</span>
+      <h2 data-reveal="words">Everything a small business needs to sell</h2>
+      <p data-reveal>Built for people running the counter, not IT departments.</p>
     </div>
     <div class="grid">
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon">🧾</div>
         <h3>Fast checkout</h3>
         <p>Ring up sales in seconds, print or share digital receipts, and take split or partial payments without a fuss.</p>
       </div>
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon">📦</div>
         <h3>Inventory that stays accurate</h3>
         <p>Stock levels update automatically with every sale and purchase, with low-stock warnings before you run out.</p>
       </div>
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon">👥</div>
         <h3>Role-based staff access</h3>
         <p>Cashiers, managers and admins each see exactly what they need — with approvals for sensitive actions like voided bills.</p>
       </div>
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon">📊</div>
         <h3>Real-time dashboard</h3>
         <p>Today's sales, top products and register activity, updated live — no more end-of-day guesswork.</p>
       </div>
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon">🛒</div>
-        <h3>Purchases & suppliers</h3>
+        <h3>Purchases &amp; suppliers</h3>
         <p>Track purchase orders and supplier costs alongside your sales, all in the same system.</p>
       </div>
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon">📱</div>
         <h3>Works like an app</h3>
         <p>Installs to a phone or tablet home screen like a native app — no app store, no extra hardware required.</p>
@@ -118,67 +142,95 @@
 
 <section>
   <div class="container">
-    <div class="showcase">
-      <div class="showcase-media">
-        <span class="wipe"><img src="assets/screenshot-pos.png" alt="MiniKart point of sale checkout screen" /></span>
-      </div>
-      <div class="showcase-copy">
-        <span class="eyebrow">At the counter</span>
-        <h3>A checkout screen built for speed</h3>
-        <p>Search or scan a product, build the order, and take payment — cash, card or bank transfer — without hunting through menus.</p>
-        <ul>
-          <li>Product search and barcode scanning</li>
-          <li>Hold and recall orders</li>
-          <li>Discounts, notes and order types built in</li>
-        </ul>
-      </div>
+    <div class="section-head">
+      <span class="eyebrow" data-reveal>A closer look</span>
+      <h2 data-reveal="words">Four screens that run the whole shop</h2>
     </div>
 
-    <div class="showcase reverse">
-      <div class="showcase-media">
-        <span class="wipe"><img src="assets/screenshot-orders.png" alt="MiniKart order history with a voided order and manager approval" /></span>
+    <!-- Product tour. Desktop: the screenshot pins while the copy scrolls and
+         the screen swaps per step. Mobile / no-JS: each step shows its own
+         screenshot inline, like a normal feature row. -->
+    <div class="tour" data-tour>
+      <div class="tour-media">
+        <div class="showcase-media tour-stage" data-reveal="media">
+          <span class="wipe tour-screens">
+            <img class="tour-img is-active" src="assets/screenshot-pos.png" width="1400" height="673" loading="lazy" decoding="async" alt="MiniKart point of sale checkout screen" />
+            <img class="tour-img" src="assets/screenshot-orders.png" width="1400" height="673" loading="lazy" decoding="async" alt="MiniKart order history with a voided order and manager approval" />
+            <img class="tour-img" src="assets/screenshot-inventory.png" width="1400" height="673" loading="lazy" decoding="async" alt="MiniKart inventory screen showing stock levels and movements" />
+            <img class="tour-img" src="assets/screenshot-reports.png" width="1400" height="673" loading="lazy" decoding="async" alt="MiniKart reports screen with sales totals for a date range" />
+          </span>
+        </div>
+        <div class="tour-meta" aria-hidden="true">
+          <span class="tour-count"><b class="tour-current">01</b> / 04</span>
+          <span class="tour-label">At the counter</span>
+          <span class="tour-bar"><i></i></span>
+        </div>
       </div>
-      <div class="showcase-copy">
-        <span class="eyebrow">Accountability</span>
-        <h3>Voids and refunds stay controlled</h3>
-        <p>Every order is logged with who rang it up, how it was paid, and its status — so a voided bill is always visible, not quietly gone.</p>
-        <ul>
-          <li>Full order history with filters</li>
-          <li>Manager approval required to void a sale</li>
-          <li>Search by cashier, customer or order number</li>
-        </ul>
-      </div>
-    </div>
 
-    <div class="showcase">
-      <div class="showcase-media">
-        <span class="wipe"><img src="assets/screenshot-inventory.png" alt="MiniKart inventory screen showing stock levels and movements" /></span>
-      </div>
-      <div class="showcase-copy">
-        <span class="eyebrow">Stock</span>
-        <h3>Know what's on the shelf, always</h3>
-        <p>Stock adjusts automatically with every sale and purchase, with a full movement history so nothing disappears unexplained.</p>
-        <ul>
-          <li>Live stock value and low-stock alerts</li>
-          <li>Manual stock adjustments with a reason logged</li>
-          <li>Per-product movement history</li>
-        </ul>
-      </div>
-    </div>
+      <div class="tour-steps">
+        <article class="tour-step">
+          <div class="showcase-media tour-inline" data-reveal="media">
+            <span class="wipe"><img src="assets/screenshot-pos.png" width="1400" height="673" loading="lazy" decoding="async" alt="MiniKart point of sale checkout screen" /></span>
+          </div>
+          <div class="showcase-copy" data-reveal>
+            <span class="eyebrow">At the counter</span>
+            <h3>A checkout screen built for speed</h3>
+            <p>Search or scan a product, build the order, and take payment — cash, card or bank transfer — without hunting through menus.</p>
+            <ul>
+              <li>Product search and barcode scanning</li>
+              <li>Hold and recall orders</li>
+              <li>Discounts, notes and order types built in</li>
+            </ul>
+          </div>
+        </article>
 
-    <div class="showcase reverse">
-      <div class="showcase-media">
-        <span class="wipe"><img src="assets/screenshot-reports.png" alt="MiniKart reports screen with sales totals for a date range" /></span>
-      </div>
-      <div class="showcase-copy">
-        <span class="eyebrow">Reporting</span>
-        <h3>Reports that answer real questions</h3>
-        <p>Pick a date range and see gross sales, discounts, refunds and average order value — export it or print straight to PDF.</p>
-        <ul>
-          <li>Sales, products, categories, payments and expenses</li>
-          <li>Any date range, one click</li>
-          <li>CSV export and print-to-PDF</li>
-        </ul>
+        <article class="tour-step">
+          <div class="showcase-media tour-inline" data-reveal="media">
+            <span class="wipe"><img src="assets/screenshot-orders.png" width="1400" height="673" loading="lazy" decoding="async" alt="MiniKart order history with a voided order and manager approval" /></span>
+          </div>
+          <div class="showcase-copy" data-reveal>
+            <span class="eyebrow">Accountability</span>
+            <h3>Voids and refunds stay controlled</h3>
+            <p>Every order is logged with who rang it up, how it was paid, and its status — so a voided bill is always visible, not quietly gone.</p>
+            <ul>
+              <li>Full order history with filters</li>
+              <li>Manager approval required to void a sale</li>
+              <li>Search by cashier, customer or order number</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="tour-step">
+          <div class="showcase-media tour-inline" data-reveal="media">
+            <span class="wipe"><img src="assets/screenshot-inventory.png" width="1400" height="673" loading="lazy" decoding="async" alt="MiniKart inventory screen showing stock levels and movements" /></span>
+          </div>
+          <div class="showcase-copy" data-reveal>
+            <span class="eyebrow">Stock</span>
+            <h3>Know what's on the shelf, always</h3>
+            <p>Stock adjusts automatically with every sale and purchase, with a full movement history so nothing disappears unexplained.</p>
+            <ul>
+              <li>Live stock value and low-stock alerts</li>
+              <li>Manual stock adjustments with a reason logged</li>
+              <li>Per-product movement history</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="tour-step">
+          <div class="showcase-media tour-inline" data-reveal="media">
+            <span class="wipe"><img src="assets/screenshot-reports.png" width="1400" height="673" loading="lazy" decoding="async" alt="MiniKart reports screen with sales totals for a date range" /></span>
+          </div>
+          <div class="showcase-copy" data-reveal>
+            <span class="eyebrow">Reporting</span>
+            <h3>Reports that answer real questions</h3>
+            <p>Pick a date range and see gross sales, discounts, refunds and average order value — export it or print straight to PDF.</p>
+            <ul>
+              <li>Sales, products, categories, payments and expenses</li>
+              <li>Any date range, one click</li>
+              <li>CSV export and print-to-PDF</li>
+            </ul>
+          </div>
+        </article>
       </div>
     </div>
   </div>
@@ -187,21 +239,21 @@
 <section class="alt">
   <div class="container">
     <div class="section-head">
-      <span class="eyebrow">Getting started</span>
-      <h2>Up and running in three steps</h2>
+      <span class="eyebrow" data-reveal>Getting started</span>
+      <h2 data-reveal="words">Up and running in three steps</h2>
     </div>
     <div class="steps">
-      <div class="step">
+      <div class="step" data-reveal>
         <div class="num"></div>
         <h3>Tell us about your business</h3>
         <p>Reach out and we'll set up your account, products and staff logins for you.</p>
       </div>
-      <div class="step">
+      <div class="step" data-reveal>
         <div class="num"></div>
         <h3>Install on your devices</h3>
         <p>Add it to any phone, tablet or computer in a couple of taps — no downloads from an app store.</p>
       </div>
-      <div class="step">
+      <div class="step" data-reveal>
         <div class="num"></div>
         <h3>Start selling</h3>
         <p>Your team logs in and starts ringing up sales the same day.</p>
@@ -212,23 +264,24 @@
 
 <section>
   <div class="container">
-    <div class="cta-band">
-      <h2>Ready to see it running on your own products?</h2>
+    <div class="cta-band" data-reveal>
+      <h2 data-reveal="words">Ready to see it running on your own products?</h2>
       <p>Get in touch and we'll walk you through a live demo — no commitment, no pressure.</p>
       <div class="hero-actions">
-        <a href="contact.html" class="btn btn-primary magnetic">Request a demo</a>
+        <a href="contact.html" class="btn btn-primary magnetic">Request a demo<svg class="btn-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <a href="pricing.html" class="btn btn-outline">View pricing</a>
       </div>
     </div>
   </div>
 </section>
+</main>
 
 <footer class="site">
   <div class="container">
     <div class="footer-grid">
       <div>
         <div class="footer-brand">
-          <img src="assets/logo-mark.png" alt="MiniKart" />
+          <img src="assets/logo-mark.png" alt="" width="28" height="28" loading="lazy" />
           <span>MiniKart</span>
         </div>
         <p>Simple point-of-sale software for cafés, retail shops and small businesses.</p>
